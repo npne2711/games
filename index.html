@@ -23,7 +23,7 @@
 
         #game-container {
             width: 90%;
-            max-width: 400px;
+            max-width: 450px;
             background-color: rgba(0, 0, 0, 0.8);
             border-radius: 15px;
             padding: 20px;
@@ -32,19 +32,19 @@
         }
 
         #game-container h3 {
-            font-size: 24px;
+            font-size: 26px;
             margin-bottom: 10px;
         }
 
         #game-container p {
-            font-size: 16px;
-            line-height: 1.5;
+            font-size: 18px;
+            line-height: 1.6;
             margin-bottom: 20px;
         }
 
         #character-container {
             margin: 15px auto;
-            max-width: 120px;
+            max-width: 140px;
         }
 
         #character-container img {
@@ -57,7 +57,7 @@
             color: white;
             border: none;
             padding: 12px 20px;
-            font-size: 16px;
+            font-size: 18px;
             border-radius: 8px;
             cursor: pointer;
             transition: transform 0.3s, box-shadow 0.3s;
@@ -77,18 +77,18 @@
         #puzzle-grid {
             display: grid;
             grid-template-columns: repeat(9, 1fr);
-            gap: 1px;
+            gap: 2px;
             margin: 20px auto;
             background: rgba(0, 0, 0, 0.8);
-            padding: 5px;
+            padding: 10px;
             border-radius: 10px;
-            max-width: 320px;
+            max-width: 95%;
         }
 
         .puzzle-cell {
             width: 100%;
             height: 0;
-            padding-bottom: 100%;
+            padding-bottom: 100%; /* Ensures square cells */
             border: 1px solid #ddd;
             text-align: center;
             position: relative;
@@ -101,7 +101,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 14px;
+            font-size: 20px;
         }
 
         .puzzle-cell input {
@@ -111,7 +111,7 @@
             width: 100%;
             height: 100%;
             text-align: center;
-            font-size: 14px;
+            font-size: 20px;
             border: none;
             background: none;
             color: yellow;
@@ -122,10 +122,10 @@
             color: white;
             border: none;
             padding: 12px 20px;
-            font-size: 16px;
+            font-size: 18px;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
             transition: transform 0.3s, box-shadow 0.3s;
         }
 
@@ -140,19 +140,19 @@
             }
 
             #game-container h3 {
-                font-size: 20px;
+                font-size: 22px;
             }
 
             #game-container p {
-                font-size: 14px;
+                font-size: 16px;
             }
 
             .puzzle-cell span {
-                font-size: 12px;
+                font-size: 16px;
             }
 
             .puzzle-cell input {
-                font-size: 12px;
+                font-size: 16px;
             }
         }
     </style>
