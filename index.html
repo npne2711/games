@@ -16,15 +16,16 @@
                 margin-right: 0;
             }
             #puzzle-grid, #puzzle-15-grid {
-                grid-template-columns: repeat(3, 1fr) !important;
-                max-width: 100% !important;
+                grid-template-columns: repeat(9, 1fr) !important;
+                width: 100% !important;
                 margin: 0 auto !important;
             }
             .puzzle-cell, .puzzle-15-cell {
-                width: 35px !important;
-                height: 35px !important;
+                width: auto !important;
+                height: auto !important;
+                aspect-ratio: 1;
                 font-size: 14px !important;
-                line-height: 35px !important;
+                line-height: normal !important;
             }
             #popup-container p {
                 font-size: 14px !important;
