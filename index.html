@@ -158,6 +158,11 @@
     </style>
 </head>
 <body>
+    <audio id="background-music" loop>
+        <source src="768553__josefpres__piano-loops-157-efect-3-octave-long-loop-120-bpm.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+
     <div id="game-container">
         <h3>解密冒險：數獨挑戰</h3>
         <div id="character-container">
@@ -174,9 +179,11 @@
     </div>
 
     <script>
+        const music = document.getElementById("background-music");
         const puzzleSection = document.getElementById("puzzle-section");
 
         document.getElementById("start-button").addEventListener("click", () => {
+            music.play();
             document.getElementById("game-container").style.display = "none";
             puzzleSection.style.display = "block";
             loadSudoku();
