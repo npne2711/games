@@ -42,6 +42,16 @@
             margin-bottom: 20px;
         }
 
+        #character-container {
+            margin: 15px auto;
+            max-width: 120px;
+        }
+
+        #character-container img {
+            width: 100%;
+            border-radius: 10px;
+        }
+
         #start-button {
             background: linear-gradient(45deg, #e74c3c, #3498db);
             color: white;
@@ -67,31 +77,41 @@
         #puzzle-grid {
             display: grid;
             grid-template-columns: repeat(9, 1fr);
-            gap: 2px;
+            gap: 1px;
             margin: 20px auto;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 5px;
             border-radius: 10px;
-            max-width: 100%;
+            max-width: 320px;
         }
 
         .puzzle-cell {
             width: 100%;
-            height: auto;
-            aspect-ratio: 1;
+            height: 0;
+            padding-bottom: 100%;
             border: 1px solid #ddd;
             text-align: center;
-            font-size: 18px;
-            line-height: 1;
+            position: relative;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
         }
 
+        .puzzle-cell span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+        }
+
         .puzzle-cell input {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             text-align: center;
-            font-size: 18px;
+            font-size: 14px;
             border: none;
             background: none;
             color: yellow;
@@ -127,12 +147,12 @@
                 font-size: 14px;
             }
 
-            .puzzle-cell {
-                font-size: 14px;
+            .puzzle-cell span {
+                font-size: 12px;
             }
 
             .puzzle-cell input {
-                font-size: 14px;
+                font-size: 12px;
             }
         }
     </style>
@@ -140,6 +160,9 @@
 <body>
     <div id="game-container">
         <h3>解密冒險：數獨挑戰</h3>
+        <div id="character-container">
+            <img src="file:///C:/Users/user/Desktop/Susu/Character/talking_blush.png" alt="瑪雅">
+        </div>
         <p>你是瑪雅，一位年輕的考古學家，正在尋找古老的寶藏。然而，進入寶藏的唯一途徑是完成數獨挑戰。</p>
         <button id="start-button">開始挑戰</button>
     </div>
@@ -179,7 +202,9 @@
                     const div = document.createElement("div");
                     div.className = "puzzle-cell";
                     if (cell) {
-                        div.textContent = cell;
+                        const span = document.createElement("span");
+                        span.textContent = cell;
+                        div.appendChild(span);
                     } else {
                         const input = document.createElement("input");
                         input.type = "text";
