@@ -4,7 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>解密冒險：數獨與拼圖挑戰</title>
+    
     <style>
+        :root {
+            --cell-size: 50px;
+        }
+
+        @media (max-width: 600px) {
+            #game-container {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            #story-container {
+                margin-right: 0;
+            }
+            #character-container {
+                margin: 20px auto;
+                text-align: center;
+            }
+            #puzzle-grid {
+                grid-template-columns: repeat(9, minmax(30px, 1fr)) !important;
+                width: 100% !important;
+                margin: 0 auto !important;
+            }
+            .puzzle-cell {
+                aspect-ratio: 1/1;
+                font-size: calc(2vw + 10px) !important;
+                line-height: normal !important;
+            }
+            #popup-container p {
+                font-size: 14px !important;
+            }
+        }
+    
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -12,9 +45,8 @@
             background-color: #2c3e50;
             color: white;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             min-height: 100vh;
             background-image: url('ai-generated-8886225.jpg');
             background-size: cover;
@@ -22,146 +54,105 @@
         }
 
         #game-container {
-            width: 100%;
-            max-width: 600px;
-            background-color: rgba(0, 0, 0, 0.8);
+            max-width: 900px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 30px;
             border-radius: 15px;
-            padding: 20px;
-            text-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
-        #character-container img {
-            max-width: 120px;
-            margin-bottom: 20px;
-            border-radius: 10px;
+        #story-container {
+            flex: 1;
+            text-align: left;
+            margin-right: 20px;
         }
 
         #story-container h3 {
             font-size: 24px;
-            margin-bottom: 10px;
         }
 
-        #story-container p {
-            font-size: 16px;
-            margin-bottom: 20px;
+        #character-container {
+            flex: 0.3;
+            text-align: center;
         }
 
-        #start-button, #submit-puzzle, #submit-15-puzzle {
-            background: linear-gradient(45deg, #e74c3c, #3498db);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
+        #character-container img {
+            max-width: 100%;
+            border-radius: 10px;
         }
 
         #puzzle-grid {
             display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            gap: 2px;
-            margin: 20px auto;
-            width: 90%;
-            max-width: 350px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px;
+            gap: 5px;
+            grid-template-columns: repeat(9, minmax(var(--cell-size), 1fr));
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 3px solid white;
+            padding: 10px;
             border-radius: 10px;
         }
 
         .puzzle-cell {
-            width: 100%;
-            height: 0;
-            padding-bottom: 100%;
+            width: var(--cell-size);
+            height: var(--cell-size);
             border: 1px solid white;
-            position: relative;
+            text-align: center;
+            font-size: 20px;
+            line-height: var(--cell-size);
             background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .puzzle-cell span {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 14px;
+            color: white;
+            font-weight: bold;
         }
 
         .puzzle-cell input {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             text-align: center;
-            font-size: 14px;
+            font-size: 20px;
             border: none;
             background: none;
             color: yellow;
+            font-weight: bold;
         }
 
-        #puzzle-15-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 2px;
-            margin: 20px auto;
-            width: 90%;
-            max-width: 300px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 5px;
-            border-radius: 10px;
-        }
-
-        .puzzle-15-cell {
-            width: 100%;
-            height: 0;
-            padding-bottom: 100%;
-            border: 1px solid white;
-            position: relative;
-            text-align: center;
-            font-size: 14px;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .puzzle-15-cell.empty {
-            background-color: transparent;
+        #submit-puzzle {
+            background: linear-gradient(45deg, #e74c3c, #3498db);
+            color: white;
             border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            transition: 0.3s;
         }
 
-        @media (max-width: 600px) {
-            #story-container h3 {
-                font-size: 20px;
-            }
-
-            #story-container p {
-                font-size: 14px;
-            }
-
-            .puzzle-cell span, .puzzle-cell input, .puzzle-15-cell {
-                font-size: 12px;
-            }
-
-            #character-container img {
-                max-width: 100px;
-            }
+        #submit-puzzle:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <audio id="background-music" loop>
-        <source src="768553__josefpres__piano-loops-157-efect-3-octave-long-loop-120-bpm.wav" type="audio/wav">
-        Your browser does not support the audio element.
-    </audio>
+    <div id="popup-container">
+        <p id="popup-text">歡迎來到解密冒險！你的旅程將從一個簡單的數獨開始，然後挑戰更加複雜的拼圖。</p>
+        <button id="popup-button">繼續</button>
+    </div>
 
     <div id="game-container">
         <div id="story-container">
             <h3>解密冒險：數獨挑戰</h3>
-            <p>你是瑪雅，一位年輕的考古學家，正在尋找古老的寶藏。然而，進入寶藏的唯一途徑是完成數獨挑戰。</p>
+            <p id="story-text">
+                你是瑪雅，一位年輕的考古學家，正在尋找古老的寶藏。然而，進入寶藏的唯一途徑是完成數獨挑戰。
+                解開數獨後，你將可以開啟神秘之門，進入未知的冒險。
+            </p>
+            <button id="start-button">開始挑戰</button>
         </div>
         <div id="character-container">
             <img src="talking_blush.png" alt="瑪雅">
         </div>
-        <button id="start-button">開始挑戰</button>
     </div>
 
     <div id="puzzle-section" style="display: none;">
@@ -170,58 +161,50 @@
         <button id="submit-puzzle">檢查答案</button>
     </div>
 
-    <div id="puzzle-15-section" style="display: none;">
-        <h3>拼圖挑戰：數字滑動拼圖</h3>
-        <div id="puzzle-15-grid"></div>
-        <button id="submit-15-puzzle">檢查答案</button>
-    </div>
-
     <script>
-        const music = document.getElementById("background-music");
-        const puzzleSection = document.getElementById("puzzle-section");
-        const puzzle15Section = document.getElementById("puzzle-15-section");
-        const startButton = document.getElementById("start-button");
+        document.addEventListener("DOMContentLoaded", () => {
+            const startButton = document.getElementById("start-button");
+            const popupContainer = document.getElementById("popup-container");
+            const puzzleSection = document.getElementById("puzzle-section");
 
-        startButton.addEventListener("click", () => {
-            music.play();
-            document.getElementById("game-container").style.display = "none";
-            puzzleSection.style.display = "block";
-            loadSudoku();
-        });
-
-        function loadSudoku() {
-            const puzzleGrid = document.getElementById("puzzle-grid");
-            puzzleGrid.innerHTML = "";
-            const sudokuGrid = [
-                ["5", "3", "", "", "7", "", "", "", ""],
-                ["6", "", "", "1", "9", "5", "", "", ""],
-                ["", "9", "8", "", "", "", "", "6", ""],
-                ["8", "", "", "", "6", "", "", "", "3"],
-                ["4", "", "", "8", "", "3", "", "", "1"],
-                ["7", "", "", "", "2", "", "", "", "6"],
-                ["", "6", "", "", "", "", "2", "8", ""],
-                ["", "", "", "4", "1", "9", "", "", "5"],
-                ["", "", "", "", "8", "", "", "7", "9"],
-            ];
-
-            sudokuGrid.forEach((row) => {
-                row.forEach((cell) => {
-                    const div = document.createElement("div");
-                    div.className = "puzzle-cell";
-                    if (cell) {
-                        const span = document.createElement("span");
-                        span.textContent = cell;
-                        div.appendChild(span);
-                    } else {
-                        const input = document.createElement("input");
-                        input.type = "text";
-                        input.maxLength = 1;
-                        div.appendChild(input);
-                    }
-                    puzzleGrid.appendChild(div);
-                });
+            startButton.addEventListener("click", () => {
+                popupContainer.style.display = "none";
+                puzzleSection.style.display = "block";
+                loadSudoku();
             });
-        }
+
+            function loadSudoku() {
+                const puzzleGrid = document.getElementById("puzzle-grid");
+                puzzleGrid.innerHTML = "";
+                const sudokuGrid = [
+                    ["5", "3", "", "", "7", "", "", "", ""],
+                    ["6", "", "", "1", "9", "5", "", "", ""],
+                    ["", "9", "8", "", "", "", "", "6", ""],
+                    ["8", "", "", "", "6", "", "", "", "3"],
+                    ["4", "", "", "8", "", "3", "", "", "1"],
+                    ["7", "", "", "", "2", "", "", "", "6"],
+                    ["", "6", "", "", "", "", "2", "8", ""],
+                    ["", "", "", "4", "1", "9", "", "", "5"],
+                    ["", "", "", "", "8", "", "", "7", "9"]
+                ];
+
+                sudokuGrid.forEach(row => {
+                    row.forEach(cell => {
+                        const div = document.createElement("div");
+                        div.className = "puzzle-cell";
+                        if (cell) {
+                            div.textContent = cell;
+                        } else {
+                            const input = document.createElement("input");
+                            input.type = "text";
+                            input.maxLength = 1;
+                            div.appendChild(input);
+                        }
+                        puzzleGrid.appendChild(div);
+                    });
+                });
+            }
+        });
     </script>
 </body>
 </html>
