@@ -24,17 +24,14 @@
                 text-align: center;
             }
             #puzzle-grid {
-                grid-template-columns: repeat(9, minmax(30px, 1fr)) !important;
+                grid-template-columns: repeat(9, 1fr);
                 width: 100% !important;
                 margin: 0 auto !important;
             }
             .puzzle-cell {
-                aspect-ratio: 1/1;
+                aspect-ratio: 1 / 1;
                 font-size: calc(2vw + 10px) !important;
                 line-height: normal !important;
-            }
-            #popup-container p {
-                font-size: 14px !important;
             }
         }
     
@@ -124,20 +121,20 @@
         #puzzle-grid {
             display: grid;
             gap: 5px;
-            grid-template-columns: repeat(9, minmax(var(--cell-size), 1fr));
+            grid-template-columns: repeat(9, 1fr);
             background-color: rgba(0, 0, 0, 0.5);
             border: 3px solid white;
             padding: 10px;
             border-radius: 10px;
+            width: 100%;
         }
 
         .puzzle-cell {
-            width: var(--cell-size);
-            height: var(--cell-size);
+            width: 100%;
+            aspect-ratio: 1 / 1;
             border: 1px solid white;
             text-align: center;
             font-size: 18px;
-            line-height: var(--cell-size);
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
             font-weight: bold;
