@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>解密冒險：數獨與拼圖挑戰</title>
+    <title>解密冒險：數獨挑戰</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -28,7 +28,7 @@
             padding: 20px;
             border-radius: 15px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-            display: none; /* Ẩn ban đầu, chỉ hiển thị sau khi nhấn "開始挑戰" */
+            display: none; /* Ẩn ban đầu */
         }
 
         #intro-container {
@@ -47,7 +47,7 @@
 
         #puzzle-grid {
             display: grid;
-            gap: 5px;
+            gap: 2px;
             grid-template-columns: repeat(9, 1fr);
             background-color: rgba(0, 0, 0, 0.5);
             border: 3px solid white;
@@ -57,28 +57,32 @@
         }
 
         .puzzle-cell {
-            width: 100%;
             aspect-ratio: 1 / 1;
             border: 1px solid white;
-            text-align: center;
-            font-size: 1.5rem;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
-            font-weight: bold;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
         }
 
         .puzzle-cell input {
-            width: 100%;
-            height: 100%;
+            width: 90%;
+            height: 90%;
             text-align: center;
             font-size: 1.5rem;
             border: none;
             background: none;
             color: yellow;
             font-weight: bold;
+            box-sizing: border-box;
+        }
+
+        .puzzle-cell input:focus {
+            outline: none;
+            border: 2px solid #3498db;
         }
 
         #start-button, #submit-puzzle {
