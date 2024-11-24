@@ -4,37 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>解密冒險：數獨與拼圖挑戰</title>
-    
     <style>
-        :root {
-            --cell-size: 50px;
-        }
-
-        @media (max-width: 600px) {
-            #game-container {
-                flex-direction: column;
-                text-align: center;
-                padding: 20px;
-            }
-            #story-container {
-                margin-right: 0;
-            }
-            #character-container {
-                margin: 20px auto;
-                text-align: center;
-            }
-            #puzzle-grid {
-                grid-template-columns: repeat(9, 1fr);
-                width: 100% !important;
-                margin: 0 auto !important;
-            }
-            .puzzle-cell {
-                aspect-ratio: 1 / 1;
-                font-size: calc(2vw + 10px) !important;
-                line-height: normal !important;
-            }
-        }
-    
         body {
             font-family: 'Arial', sans-serif;
             margin: 0;
@@ -51,71 +21,28 @@
         }
 
         #game-container {
-            max-width: 900px;
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+            display: none; /* Ẩn ban đầu, chỉ hiển thị sau khi nhấn "開始挑戰" */
+        }
+
+        #intro-container {
+            text-align: center;
         }
 
         #story-container {
-            flex: 1;
-            text-align: left;
-            margin-right: 20px;
-        }
-
-        #story-container h3 {
-            font-size: 24px;
-        }
-
-        #character-container {
-            flex: 0.3;
-            text-align: center;
+            margin-bottom: 20px;
         }
 
         #character-container img {
             max-width: 100%;
             border-radius: 10px;
-        }
-
-        #popup-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 90%;
-            max-width: 400px;
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-            display: none;
-            z-index: 1000;
-        }
-
-        #popup-container p {
-            font-size: 16px;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        #popup-button {
-            background-color: #f39c12;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        #popup-button:hover {
-            background-color: #d35400;
+            margin-top: 20px;
         }
 
         #puzzle-grid {
@@ -126,7 +53,7 @@
             border: 3px solid white;
             padding: 10px;
             border-radius: 10px;
-            width: 100%;
+            margin: 20px auto;
         }
 
         .puzzle-cell {
@@ -134,62 +61,61 @@
             aspect-ratio: 1 / 1;
             border: 1px solid white;
             text-align: center;
-            font-size: 18px;
+            font-size: 1.5rem;
             background-color: rgba(255, 255, 255, 0.1);
             color: white;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .puzzle-cell input {
             width: 100%;
             height: 100%;
             text-align: center;
-            font-size: 18px;
+            font-size: 1.5rem;
             border: none;
             background: none;
             color: yellow;
             font-weight: bold;
         }
 
-        #submit-puzzle {
+        #start-button, #submit-puzzle {
             background: linear-gradient(45deg, #e74c3c, #3498db);
             color: white;
             border: none;
             padding: 15px 30px;
-            font-size: 18px;
+            font-size: 1.2rem;
             border-radius: 10px;
             cursor: pointer;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
             transition: 0.3s;
+            margin-top: 20px;
         }
 
-        #submit-puzzle:hover {
+        #start-button:hover, #submit-puzzle:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
     </style>
 </head>
 <body>
-    <div id="popup-container">
-        <p id="popup-text">歡迎來到解密冒險！你的旅程將從一個簡單的數獨開始，然後挑戰更加複雜的拼圖。</p>
-        <button id="popup-button">繼續</button>
-    </div>
-
-    <div id="game-container">
+    <div id="intro-container">
         <div id="story-container">
             <h3>解密冒險：數獨挑戰</h3>
-            <p id="story-text">
+            <p>
                 你是瑪雅，一位年輕的考古學家，正在尋找古老的寶藏。然而，進入寶藏的唯一途徑是完成數獨挑戰。
                 解開數獨後，你將可以開啟神秘之門，進入未知的冒險。
             </p>
-            <button id="start-button">開始挑戰</button>
         </div>
         <div id="character-container">
             <img src="talking_blush.png" alt="瑪雅">
         </div>
+        <button id="start-button">開始挑戰</button>
     </div>
 
-    <div id="puzzle-section" style="display: none;">
+    <div id="game-container">
         <h3>數獨挑戰</h3>
         <div id="puzzle-grid"></div>
         <button id="submit-puzzle">檢查答案</button>
@@ -197,18 +123,13 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
+            const introContainer = document.getElementById("intro-container");
+            const gameContainer = document.getElementById("game-container");
             const startButton = document.getElementById("start-button");
-            const popupContainer = document.getElementById("popup-container");
-            const popupButton = document.getElementById("popup-button");
-            const puzzleSection = document.getElementById("puzzle-section");
 
             startButton.addEventListener("click", () => {
-                popupContainer.style.display = "flex";
-            });
-
-            popupButton.addEventListener("click", () => {
-                popupContainer.style.display = "none";
-                puzzleSection.style.display = "block";
+                introContainer.style.display = "none"; // Ẩn phần giới thiệu
+                gameContainer.style.display = "block"; // Hiển thị giao diện trò chơi
                 loadSudoku();
             });
 
@@ -227,22 +148,50 @@
                     ["", "", "", "", "8", "", "", "7", "9"]
                 ];
 
-                sudokuGrid.forEach(row => {
-                    row.forEach(cell => {
+                sudokuGrid.forEach((row, rowIndex) => {
+                    row.forEach((cell, colIndex) => {
                         const div = document.createElement("div");
                         div.className = "puzzle-cell";
+
                         if (cell) {
                             div.textContent = cell;
                         } else {
                             const input = document.createElement("input");
                             input.type = "text";
                             input.maxLength = 1;
+                            input.dataset.row = rowIndex;
+                            input.dataset.col = colIndex;
                             div.appendChild(input);
                         }
+
                         puzzleGrid.appendChild(div);
                     });
                 });
             }
+
+            document.getElementById("submit-puzzle").addEventListener("click", () => {
+                const inputs = document.querySelectorAll("#puzzle-grid input");
+                let isCorrect = true;
+
+                inputs.forEach(input => {
+                    const row = input.dataset.row;
+                    const col = input.dataset.col;
+                    const value = input.value;
+
+                    if (value && value !== sudokuGrid[row][col]) {
+                        isCorrect = false;
+                        input.style.color = "red";
+                    } else {
+                        input.style.color = "yellow";
+                    }
+                });
+
+                if (isCorrect) {
+                    alert("恭喜！答案正確！");
+                } else {
+                    alert("答案有誤，請再試一次！");
+                }
+            });
         });
     </script>
 </body>
